@@ -6,13 +6,22 @@
 	= javascript_include_tag 'application', 'data-turbolinks-track' => true 
 	= csrf_meta_tags 
 %body
+	%nav.navbar.navbar-default.navbar-fixed-top
+		.container
+			=link_to "Lukeypedia", root_path, class: "navbar-brand"
 	%p.notice= notice
 	%p.alert= alert
 
-	= yield
+	.container
+		.row
+			.col-md-8
+				= yield
+			.col-md-4
+				%ul
+					%li= link_to "All Articles", root_path
+					- Category.all.each do |category|
+						%li= link_to category.name, articles_path(category: category.name)    
 
-	%ul
-		%li= link_to "All Articles", root_path
-	- Category.all.each do |category|
-		%li= link_to category.name, articles_path(category: category.name)    
 
+
+	
